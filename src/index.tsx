@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 
-type Bindings = { DB: D1Database }
+type Bindings = { DB?: any }
 type Variables = { isAdmin: boolean }
 
 const app = new Hono<{ Bindings: Bindings; Variables: Variables }>()

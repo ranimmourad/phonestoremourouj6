@@ -1,14 +1,23 @@
-import build from '@hono/vite-build/cloudflare-pages'
-import devServer from '@hono/vite-dev-server'
-import adapter from '@hono/vite-dev-server/cloudflare'
 import { defineConfig } from 'vite'
+import devServer from '@hono/vite-dev-server'
 
 export default defineConfig({
   plugins: [
-    build(),
     devServer({
-      adapter,
       entry: 'src/index.tsx'
     })
-  ]
+  ],
+  build: {
+    target: 'node20',
+    lib: {
+      entry: 'src/index.tsx',
+      name: 'app',
+      formats: ['es']
+    },
+    rollupOptions: {
+      output: {
+        entryFileNames: '_worker.js'
+      }
+    }
+  }
 })
